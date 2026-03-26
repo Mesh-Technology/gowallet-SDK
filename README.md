@@ -1,6 +1,6 @@
 # GoWallet SDK
 
-Official SDKs for the [GoWallet](https://github.com/Mesh-Technology/gowallet) Payment Gateway API.
+Official SDKs for the GoWallet Payment Gateway API.
 
 Authenticate with HMAC-SHA512, create deposit wallets, and verify IPN webhooks — in your language of choice.
 
