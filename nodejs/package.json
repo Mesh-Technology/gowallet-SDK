@@ -1,0 +1,20 @@
+{
+  "name": "@gowallet/sdk",
+  "version": "1.0.0",
+  "description": "GoWallet Payment Gateway SDK for Node.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["gowallet", "payment", "crypto", "sdk", "blockchain"],
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

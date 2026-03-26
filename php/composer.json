@@ -1,0 +1,25 @@
+{
+    "name": "mesh-technology/gowallet-sdk",
+    "description": "Official PHP SDK for the GoWallet API – HMAC-authenticated wallet, withdrawal, and IPN verification.",
+    "type": "library",
+    "license": "MIT",
+    "keywords": ["gowallet", "crypto", "wallet", "sdk", "hmac"],
+    "homepage": "https://github.com/Mesh-Technology/gowallet-sdk-php",
+    "require": {
+        "php": ">=7.4",
+        "ext-json": "*",
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "GoWallet\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Mesh Technology",
+            "homepage": "https://github.com/Mesh-Technology"
+        }
+    ],
+    "minimum-stability": "stable"
+}
