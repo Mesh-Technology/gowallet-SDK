@@ -6,6 +6,8 @@ Official Node.js SDK for the GoWallet Payment Gateway API.
 
 ```bash
 npm install @gowallet/sdk
+# or install directly from GitHub
+npm install github:Mesh-Technology/gowallet-SDK#main
 ```
 
 ## Quick Start

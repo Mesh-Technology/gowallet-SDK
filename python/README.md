@@ -1,6 +1,6 @@
 # GoWallet Python SDK
 
-Official Python SDK for the GoWallet API – create wallets, submit withdrawals, query balances, and verify IPN webhooks with HMAC-SHA512 authentication.
+Official Python SDK for the GoWallet API – create wallets and verify IPN webhooks with HMAC-SHA512 authentication.
 
 **Zero dependencies** – uses only the Python standard library.
 

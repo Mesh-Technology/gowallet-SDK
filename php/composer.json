@@ -4,7 +4,7 @@
     "type": "library",
     "license": "MIT",
     "keywords": ["gowallet", "crypto", "wallet", "sdk", "hmac"],
-    "homepage": "https://github.com/Mesh-Technology/gowallet-sdk-php",
+    "homepage": "https://github.com/Mesh-Technology/gowallet-SDK",
     "require": {
         "php": ">=7.4",
         "ext-json": "*",

@@ -1,6 +1,6 @@
 # GoWallet PHP SDK
 
-Official PHP SDK for the GoWallet API – create wallets, submit withdrawals, query balances, and verify IPN webhooks with HMAC-SHA512 authentication.
+Official PHP SDK for the GoWallet API – create wallets and verify IPN webhooks with HMAC-SHA512 authentication.
 
 ## Requirements
 

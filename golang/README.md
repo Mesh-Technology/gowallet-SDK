@@ -5,7 +5,7 @@ Official Go SDK for the GoWallet Payment Gateway API.
 ## Installation
 
 ```bash
-go get github.com/Mesh-Technology/gowallet-sdk-go
+go get github.com/Mesh-Technology/gowallet-SDK/golang
 ```
 
 ## Quick Start
@@ -18,7 +18,7 @@ import (
     "fmt"
     "log"
 
-    gowallet "github.com/Mesh-Technology/gowallet-sdk-go"
+    gowallet "github.com/Mesh-Technology/gowallet-SDK/golang"
 )
 
 func main() {

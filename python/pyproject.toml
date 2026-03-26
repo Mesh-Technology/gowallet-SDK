@@ -27,5 +27,5 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/Mesh-Technology/gowallet-sdk-python"
-Repository = "https://github.com/Mesh-Technology/gowallet-sdk-python"
+Homepage = "https://github.com/Mesh-Technology/gowallet-SDK"
+Repository = "https://github.com/Mesh-Technology/gowallet-SDK"
