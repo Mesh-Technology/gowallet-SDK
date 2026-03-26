@@ -31,7 +31,7 @@ export class GoWalletClient {
 
   /** Generate or retrieve a deposit wallet for a user on a network. */
   async createWallet(params: CreateWalletRequest): Promise<WalletResponse> {
-    return this.post<WalletResponse>("/api/v1/wallet", params);
+    return this.post<WalletResponse>("/api/v1/wallet", params as unknown as Record<string, unknown>);
   }
 
   // ── Public (no auth) ──

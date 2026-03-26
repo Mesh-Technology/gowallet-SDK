@@ -126,10 +126,6 @@ func VerifyIPNSignature(payload map[string]interface{}, secret string) bool {
 
 // ── Internal Helpers ────────────────────────────────────────────────
 
-func (c *Client) get(ctx context.Context, path string, out interface{}) error {
-	return c.doRequest(ctx, http.MethodGet, path, nil, out, true)
-}
-
 func (c *Client) post(ctx context.Context, path string, body, out interface{}) error {
 	return c.doRequest(ctx, http.MethodPost, path, body, out, true)
 }

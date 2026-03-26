@@ -16,15 +16,6 @@ export interface CreateWalletRequest {
   network: "TRON" | "BSC" | "ETHEREUM" | "SOLANA" | string;
 }
 
-export interface WithdrawRequest {
-  user_id: string;
-  token_id: string;
-  network: string;
-  amount: string;
-  to_address: string;
-  notes?: string;
-}
-
 // ── Response Types ──
 
 export interface WalletResponse {
