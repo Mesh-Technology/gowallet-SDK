@@ -11,7 +11,12 @@ Official Python SDK for the GoWallet API – create wallets and verify IPN webho
 ## Installation
 
 ```bash
-pip install gowallet-sdk
+# Install directly from GitHub
+pip install git+https://github.com/Mesh-Technology/gowallet-SDK.git#subdirectory=python
+
+# Or clone and install locally
+git clone https://github.com/Mesh-Technology/gowallet-SDK.git
+pip install ./gowallet-SDK/python
 ```
 
 ## Quick Start

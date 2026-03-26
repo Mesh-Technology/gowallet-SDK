@@ -11,7 +11,30 @@ Official PHP SDK for the GoWallet API – create wallets and verify IPN webhooks
 ## Installation
 
 ```bash
-composer require mesh-technology/gowallet-sdk
+# Clone the repository
+git clone https://github.com/Mesh-Technology/gowallet-SDK.git
+```
+
+Add the SDK to your `composer.json` as a local path repository:
+
+```json
+{
+  "repositories": [
+    {
+      "type": "path",
+      "url": "../path/to/gowallet-SDK/php"
+    }
+  ],
+  "require": {
+    "mesh-technology/gowallet-sdk": "*"
+  }
+}
+```
+
+Then run:
+
+```bash
+composer update
 ```
 
 ## Quick Start

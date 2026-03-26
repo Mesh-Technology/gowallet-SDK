@@ -1,5 +1,5 @@
 {
-  "name": "@gowallet/sdk",
+  "name": "gowallet-sdk",
   "version": "1.0.0",
   "description": "GoWallet Payment Gateway SDK for Node.js",
   "repository": {

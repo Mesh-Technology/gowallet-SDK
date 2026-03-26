@@ -9,9 +9,9 @@ Authenticate with HMAC-SHA512, create deposit wallets, and verify IPN webhooks â
 | Language | Directory | Install |
 |----------|-----------|---------|
 | **Go** | [`golang/`](./golang) | `go get github.com/Mesh-Technology/gowallet-SDK/golang` |
-| **Node.js** | [`nodejs/`](./nodejs) | `npm install @gowallet/sdk` |
-| **PHP** | [`php/`](./php) | `composer require mesh-technology/gowallet-sdk` |
-| **Python** | [`python/`](./python) | `pip install gowallet-sdk` |
+| **Node.js** | [`nodejs/`](./nodejs) | Clone & build (see [nodejs/README](./nodejs/README.md)) |
+| **PHP** | [`php/`](./php) | Clone & autoload (see [php/README](./php/README.md)) |
+| **Python** | [`python/`](./python) | `pip install git+https://github.com/Mesh-Technology/gowallet-SDK.git#subdirectory=python` |
 
 ## Supported Methods
 

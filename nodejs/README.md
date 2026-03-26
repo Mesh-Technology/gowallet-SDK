@@ -5,15 +5,26 @@ Official Node.js SDK for the GoWallet Payment Gateway API.
 ## Installation
 
 ```bash
-npm install @gowallet/sdk
-# or install directly from GitHub
-npm install github:Mesh-Technology/gowallet-SDK#main
+# Clone the repository
+git clone https://github.com/Mesh-Technology/gowallet-SDK.git
+cd gowallet-SDK/nodejs
+
+# Install dependencies and build
+npm install
+npm run build
+```
+
+Then reference the SDK in your project:
+
+```bash
+# From your project, install via local path
+npm install ../path/to/gowallet-SDK/nodejs
 ```
 
 ## Quick Start
 
 ```typescript
-import { GoWalletClient } from "@gowallet/sdk";
+import { GoWalletClient } from "gowallet-sdk";
 
 const client = new GoWalletClient({
   baseUrl: "https://api.example.com",
@@ -46,7 +57,7 @@ When you receive an IPN (Instant Payment Notification) webhook, verify the signa
 
 ```typescript
 import express from "express";
-import { GoWalletClient } from "@gowallet/sdk";
+import { GoWalletClient } from "gowallet-sdk";
 
 const client = new GoWalletClient({
   baseUrl: "https://api.example.com",
@@ -88,7 +99,7 @@ app.post("/webhook/ipn", express.json(), (req, res) => {
 ## Error Handling
 
 ```typescript
-import { GoWalletClient, GoWalletAPIError } from "@gowallet/sdk";
+import { GoWalletClient, GoWalletAPIError } from "gowallet-sdk";
 
 try {
   await client.createWallet({ userId: "user-1", network: "BSC" });
