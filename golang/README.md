@@ -81,6 +81,7 @@ if err != nil {
 | Method | Description |
 |--------|-------------|
 | `CreateWallet(ctx, req)` | Generate/retrieve a deposit wallet |
+| `GetNetworks(ctx)` | Get active networks and tokens (no auth) |
 | `Health(ctx)` | Health check (no auth) |
 | `VerifyIPN(payload)` | Verify IPN webhook signature |
 

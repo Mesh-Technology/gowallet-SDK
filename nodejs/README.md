@@ -93,6 +93,7 @@ app.post("/webhook/ipn", express.json(), (req, res) => {
 | Method | Description |
 |--------|-------------|
 | `createWallet(params)` | Generate/retrieve a deposit wallet |
+| `getNetworks()` | Get active networks and tokens (no auth) |
 | `health()` | Health check (no auth) |
 | `verifyIPN(payload)` | Verify IPN webhook signature |
 

@@ -66,6 +66,16 @@ health = client.health()
 # Returns: {"status": "ok"}
 ```
 
+### Get Networks
+
+```python
+networks = client.get_networks()
+# Returns: {"networks": [...], "count": 3}
+for net in networks["networks"]:
+    tokens = ", ".join(t["symbol"] for t in net["tokens"])
+    print(f"{net['name']}: {tokens}")
+```
+
 ### IPN Webhook Verification
 
 ```python

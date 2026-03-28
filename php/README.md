@@ -90,6 +90,16 @@ $health = $client->health();
 // Returns: ['status' => 'ok']
 ```
 
+### Get Networks
+
+```php
+$networks = $client->getNetworks();
+// Returns: ['networks' => [...], 'count' => 3]
+foreach ($networks['networks'] as $net) {
+    echo $net['name'] . ': ' . implode(', ', array_column($net['tokens'], 'symbol')) . "\n";
+}
+```
+
 ### IPN Webhook Verification
 
 ```php
