@@ -64,6 +64,14 @@ class GoWalletClient:
         """
         return self._request("GET", "/health", auth=False)
 
+    def get_networks(self) -> Dict[str, Any]:
+        """Get all active networks and their tokens (no auth required).
+
+        Returns:
+            Dict with networks list and count.
+        """
+        return self._request("GET", "/api/v1/public/networks", auth=False)
+
     # ── IPN Verification ──
 
     def verify_ipn(self, payload: Dict[str, Any]) -> bool:

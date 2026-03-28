@@ -48,6 +48,16 @@ class GoWallet_API_Client
         return $this->get('/health');
     }
 
+    /**
+     * Get all active networks and their tokens — no authentication required.
+     *
+     * @return array{networks: array, count: int}
+     */
+    public function get_networks(): array
+    {
+        return $this->get('/api/v1/public/networks');
+    }
+
     // -----------------------------------------------------------------
     //  Private helpers
     // -----------------------------------------------------------------

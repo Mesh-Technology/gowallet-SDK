@@ -71,6 +71,15 @@ func (c *Client) Health(ctx context.Context) (*HealthResponse, error) {
 	return &resp, nil
 }
 
+// GetNetworks returns all active networks and their tokens (no authentication required).
+func (c *Client) GetNetworks(ctx context.Context) (*NetworksResponse, error) {
+	var resp NetworksResponse
+	if err := c.doRequest(ctx, http.MethodGet, "/api/v1/public/networks", nil, &resp, false); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
 // ── IPN Verification ────────────────────────────────────────────────
 
 // VerifyIPN checks the HMAC signature of an incoming IPN webhook payload.

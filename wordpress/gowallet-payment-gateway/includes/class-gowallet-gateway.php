@@ -94,14 +94,9 @@ class WC_GoWallet_Gateway extends WC_Payment_Gateway
             'network' => [
                 'title'       => __('Network', 'gowallet-payment-gateway'),
                 'type'        => 'select',
-                'description' => __('Default blockchain network for deposit wallets.', 'gowallet-payment-gateway'),
+                'description' => __('Default blockchain network for deposit wallets. Networks are fetched from the GoWallet API when you save settings.', 'gowallet-payment-gateway'),
                 'default'     => 'TRON',
-                'options'     => [
-                    'TRON'     => 'TRON (TRC20)',
-                    'BSC'      => 'BSC (BEP20)',
-                    'ETHEREUM' => 'Ethereum (ERC20)',
-                    'SOLANA'   => 'Solana (SPL)',
-                ],
+                'options'     => $this->get_network_options(),
             ],
             'order_status_on_payment' => [
                 'title'       => __('Order Status After Payment', 'gowallet-payment-gateway'),
@@ -113,6 +108,67 @@ class WC_GoWallet_Gateway extends WC_Payment_Gateway
                     'completed'  => __('Completed', 'gowallet-payment-gateway'),
                 ],
             ],
+        ];
+    }
+
+    /**
+     * Fetch available networks from the GoWallet API for the admin dropdown.
+     *
+     * Falls back to a static list if the API URL is not yet configured or the request fails.
+     *
+     * @return array<string, string>
+     */
+    private function get_network_options(): array
+    {
+        $api_url = $this->get_option('api_url');
+
+        if (empty($api_url)) {
+            return $this->default_network_options();
+        }
+
+        $cached = get_transient('gowallet_networks');
+        if (is_array($cached) && !empty($cached)) {
+            return $cached;
+        }
+
+        try {
+            $client   = new GoWallet_API_Client($api_url, $this->get_option('api_key', ''), $this->get_option('api_secret', ''));
+            $response = $client->get_networks();
+            $options  = [];
+
+            foreach ($response['networks'] ?? [] as $net) {
+                $name   = $net['name'] ?? '';
+                $tokens = array_column($net['tokens'] ?? [], 'symbol');
+                $label  = $name;
+                if (!empty($tokens)) {
+                    $label .= ' (' . implode(', ', $tokens) . ')';
+                }
+                $options[$name] = $label;
+            }
+
+            if (!empty($options)) {
+                set_transient('gowallet_networks', $options, 300); // cache 5 min
+                return $options;
+            }
+        } catch (Exception $e) {
+            // Silently fall back to defaults
+        }
+
+        return $this->default_network_options();
+    }
+
+    /**
+     * Fallback network list when the API is unreachable.
+     *
+     * @return array<string, string>
+     */
+    private function default_network_options(): array
+    {
+        return [
+            'TRON'     => 'TRON',
+            'BSC'      => 'BSC',
+            'ETHEREUM' => 'Ethereum',
+            'SOLANA'   => 'Solana',
         ];
     }
 

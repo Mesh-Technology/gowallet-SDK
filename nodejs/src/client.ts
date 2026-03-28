@@ -7,6 +7,7 @@ import type {
   CreateWalletRequest,
   WalletResponse,
   HealthResponse,
+  NetworksResponse,
   GoWalletError,
 } from "./types";
 
@@ -39,6 +40,11 @@ export class GoWalletClient {
   /** Health check. */
   async health(): Promise<HealthResponse> {
     return this.request<HealthResponse>("GET", "/health", undefined, false);
+  }
+
+  /** Get all active networks and their tokens (no auth required). */
+  async getNetworks(): Promise<NetworksResponse> {
+    return this.request<NetworksResponse>("GET", "/api/v1/public/networks", undefined, false);
   }
 
   // ── IPN Verification ──

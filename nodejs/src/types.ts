@@ -29,6 +29,24 @@ export interface HealthResponse {
   status: string;
 }
 
+export interface PublicToken {
+  symbol: string;
+  contract_address?: string;
+  decimal: number;
+}
+
+export interface PublicNetwork {
+  id: number;
+  name: string;
+  protocol: string;
+  tokens: PublicToken[];
+}
+
+export interface NetworksResponse {
+  networks: PublicNetwork[];
+  count: number;
+}
+
 // ── IPN Types ──
 
 export interface IPNPayload {

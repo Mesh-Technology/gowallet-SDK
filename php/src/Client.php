@@ -71,6 +71,16 @@ class Client
         return $this->request('GET', '/health', null, false);
     }
 
+    /**
+     * Get all active networks and their tokens (no auth required).
+     *
+     * @return array {networks: array, count: int}
+     */
+    public function getNetworks(): array
+    {
+        return $this->request('GET', '/api/v1/public/networks', null, false);
+    }
+
     // ── IPN Verification ──
 
     /**

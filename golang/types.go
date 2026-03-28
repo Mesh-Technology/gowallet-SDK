@@ -19,6 +19,27 @@ type HealthResponse struct {
 	Status string `json:"status"`
 }
 
+// PublicToken represents a token on a public network.
+type PublicToken struct {
+	Symbol          string `json:"symbol"`
+	ContractAddress string `json:"contract_address,omitempty"`
+	Decimal         int    `json:"decimal"`
+}
+
+// PublicNetwork represents an active network with its tokens.
+type PublicNetwork struct {
+	ID       uint          `json:"id"`
+	Name     string        `json:"name"`
+	Protocol string        `json:"protocol"`
+	Tokens   []PublicToken `json:"tokens"`
+}
+
+// NetworksResponse is the response from GetNetworks.
+type NetworksResponse struct {
+	Networks []PublicNetwork `json:"networks"`
+	Count    int             `json:"count"`
+}
+
 // ErrorResponse represents an API error.
 type ErrorResponse struct {
 	Error   string `json:"error"`

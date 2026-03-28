@@ -20,6 +20,45 @@ require_once __DIR__ . '/lib/GoWalletHMAC.php';
 require_once __DIR__ . '/lib/GoWalletClient.php';
 
 /**
+ * Fetch available networks from the GoWallet API for the admin dropdown.
+ * Falls back to a static list if the API is unreachable.
+ *
+ * @return string Comma-separated network names for WHMCS dropdown.
+ */
+function gowallet_fetch_network_options(): string
+{
+    $gatewayParams = [];
+    try {
+        $gatewayParams = getGatewayVariables('gowallet');
+    } catch (\Throwable $e) {
+        // Module not yet activated
+    }
+
+    $apiUrl = $gatewayParams['apiUrl'] ?? '';
+    if (empty($apiUrl)) {
+        return 'TRON,BSC,ETHEREUM,SOLANA';
+    }
+
+    try {
+        $client   = new GoWalletClient($apiUrl, '', '');
+        $response = $client->getNetworks();
+        $names    = [];
+        foreach ($response['networks'] ?? [] as $net) {
+            if (!empty($net['name'])) {
+                $names[] = $net['name'];
+            }
+        }
+        if (!empty($names)) {
+            return implode(',', $names);
+        }
+    } catch (\Exception $e) {
+        // Fall back to defaults
+    }
+
+    return 'TRON,BSC,ETHEREUM,SOLANA';
+}
+
+/**
  * Module metadata.
  */
 function gowallet_MetaData(): array
@@ -64,9 +103,9 @@ function gowallet_config(): array
         'network' => [
             'FriendlyName' => 'Default Network',
             'Type'         => 'dropdown',
-            'Options'      => 'TRON,BSC,ETHEREUM,SOLANA',
+            'Options'      => gowallet_fetch_network_options(),
             'Default'      => 'TRON',
-            'Description'  => 'Blockchain network for deposit wallets.',
+            'Description'  => 'Blockchain network for deposit wallets (fetched from GoWallet API).',
         ],
     ];
 }

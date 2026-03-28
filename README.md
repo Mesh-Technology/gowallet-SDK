@@ -26,11 +26,12 @@ Download the latest plugin `.zip` files from the [Releases](https://github.com/M
 
 ## Supported Methods
 
-All SDKs expose the same three operations:
+All SDKs expose the same four operations:
 
 | Method | Auth | Description |
 |--------|------|-------------|
 | `createWallet` | HMAC | Generate or retrieve a deposit wallet for a user on a network |
+| `getNetworks` | None | Fetch all active networks and their tokens from the public endpoint |
 | `health` | None | Health check |
 | `verifyIPN` | — | Verify the HMAC signature of an incoming IPN webhook payload |
 
