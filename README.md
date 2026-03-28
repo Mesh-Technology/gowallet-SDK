@@ -13,6 +13,17 @@ Authenticate with HMAC-SHA512, create deposit wallets, and verify IPN webhooks â
 | **PHP** | [`php/`](./php) | Clone & autoload (see [php/README](./php/README.md)) |
 | **Python** | [`python/`](./python) | `pip install git+https://github.com/Mesh-Technology/gowallet-SDK.git#subdirectory=python` |
 
+## CMS / Billing Plugins
+
+Ready-to-use payment gateway plugins:
+
+| Platform | Directory | Docs |
+|----------|-----------|------|
+| **WordPress / WooCommerce** | [`wordpress/`](./wordpress) | [README](./wordpress/gowallet-payment-gateway/README.md) |
+| **WHMCS** | [`whmcs/`](./whmcs) | [README](./whmcs/gowallet/README.md) |
+
+Download the latest plugin `.zip` files from the [Releases](https://github.com/Mesh-Technology/gowallet-SDK/releases) page.
+
 ## Supported Methods
 
 All SDKs expose the same three operations:
