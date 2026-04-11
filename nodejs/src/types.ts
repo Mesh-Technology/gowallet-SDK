@@ -58,11 +58,15 @@ export interface CreateInvoiceRequest {
   callback_url?: string;
   success_url?: string;
   cancel_url?: string;
+  buyer_email?: string;
+  buyer_name?: string;
 }
 
 export interface SelectPayCurrencyRequest {
   pay_currency: string;
   pay_network: "TRON" | "BSC" | "ETHEREUM" | "SOLANA" | string;
+  buyer_email?: string;
+  buyer_name?: string;
 }
 
 export interface InvoiceResponse {
@@ -83,6 +87,8 @@ export interface InvoiceResponse {
   order_id: string | null;
   title: string | null;
   description: string | null;
+  buyer_email: string | null;
+  buyer_name: string | null;
   status: string;
   underpaid_threshold: number;
   expires_at: string | null;
