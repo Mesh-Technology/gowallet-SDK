@@ -59,6 +59,93 @@ class Client
         ]);
     }
 
+    // ── Invoices ──
+
+    /**
+     * Create a new payment invoice.
+     *
+     * @param float  $priceAmount   Invoice amount in fiat
+     * @param string $priceCurrency Fiat currency code (USD, EUR, etc.)
+     * @param array  $options       Optional: order_id, title, description, callback_url, success_url, cancel_url
+     * @return array Invoice data
+     */
+    public function createInvoice(float $priceAmount, string $priceCurrency, array $options = []): array
+    {
+        $body = array_merge([
+            'price_amount' => $priceAmount,
+            'price_currency' => $priceCurrency,
+        ], array_filter($options));
+
+        return $this->post('/api/v1/invoices', $body);
+    }
+
+    /**
+     * Get invoice detail by UUID.
+     *
+     * @param string $invoiceId The invoice UUID
+     * @return array Invoice detail with payments and status history
+     */
+    public function getInvoice(string $invoiceId): array
+    {
+        return $this->get('/api/v1/invoices/' . $invoiceId);
+    }
+
+    /**
+     * List invoices with optional filters.
+     *
+     * @param array $params Optional filters: page, limit, status, network, order_id
+     * @return array Paginated invoice list
+     */
+    public function listInvoices(array $params = []): array
+    {
+        $query = http_build_query(array_filter($params, fn($v) => $v !== null && $v !== ''));
+        $path = '/api/v1/invoices';
+        if ($query) {
+            $path .= '?' . $query;
+        }
+        return $this->get($path);
+    }
+
+    /**
+     * Select payment currency and network for an invoice (new -> pending).
+     *
+     * @param string $invoiceId   The invoice UUID
+     * @param string $payCurrency Crypto currency code (BTC, ETH, USDT, etc.)
+     * @param string $payNetwork  Network name (TRON, BSC, ETHEREUM, SOLANA)
+     * @return array Updated invoice data
+     */
+    public function selectPayCurrency(string $invoiceId, string $payCurrency, string $payNetwork): array
+    {
+        return $this->post('/api/v1/invoices/' . $invoiceId . '/select', [
+            'pay_currency' => $payCurrency,
+            'pay_network' => $payNetwork,
+        ]);
+    }
+
+    /**
+     * Cancel an invoice (only from new/pending status).
+     *
+     * @param string $invoiceId The invoice UUID
+     * @return array Updated invoice data
+     */
+    public function cancelInvoice(string $invoiceId): array
+    {
+        return $this->post('/api/v1/invoices/' . $invoiceId . '/cancel', []);
+    }
+
+    /**
+     * Verify the HMAC-SHA512 signature of an invoice callback payload.
+     *
+     * @param array  $payload   The callback payload
+     * @param string $signature The signature from the X-GoWallet-Signature header
+     * @return bool True if valid
+     */
+    public function verifyInvoiceCallback(array $payload, string $signature): bool
+    {
+        $expected = HMAC::signPayload($payload, $this->apiSecret);
+        return hash_equals($expected, $signature);
+    }
+
     // ── Public (no auth) ──
 
     /**

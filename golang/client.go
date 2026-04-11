@@ -60,6 +60,76 @@ func (c *Client) CreateWallet(ctx context.Context, req CreateWalletRequest) (*Wa
 	return &resp, nil
 }
 
+// ── Invoices ───────────────────────────────────────────────────────
+
+// CreateInvoice creates a new payment invoice.
+func (c *Client) CreateInvoice(ctx context.Context, req CreateInvoiceRequest) (*InvoiceResponse, error) {
+	var resp InvoiceResponse
+	if err := c.post(ctx, "/api/v1/invoices", req, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// GetInvoice retrieves an invoice by its UUID.
+func (c *Client) GetInvoice(ctx context.Context, invoiceID string) (*InvoiceDetailResponse, error) {
+	var resp InvoiceDetailResponse
+	if err := c.doRequest(ctx, http.MethodGet, "/api/v1/invoices/"+invoiceID, nil, &resp, true); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// ListInvoices returns a paginated list of invoices.
+func (c *Client) ListInvoices(ctx context.Context, params map[string]string) (*InvoiceListResponse, error) {
+	path := "/api/v1/invoices"
+	if len(params) > 0 {
+		q := "?"
+		first := true
+		for k, v := range params {
+			if !first {
+				q += "&"
+			}
+			q += k + "=" + v
+			first = false
+		}
+		path += q
+	}
+	var resp InvoiceListResponse
+	if err := c.doRequest(ctx, http.MethodGet, path, nil, &resp, true); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// SelectPayCurrency selects the pay currency and network for an invoice (new -> pending).
+func (c *Client) SelectPayCurrency(ctx context.Context, invoiceID string, req SelectPayCurrencyRequest) (*InvoiceResponse, error) {
+	var resp InvoiceResponse
+	if err := c.post(ctx, "/api/v1/invoices/"+invoiceID+"/select", req, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// CancelInvoice cancels an invoice (only from new/pending status).
+func (c *Client) CancelInvoice(ctx context.Context, invoiceID string) (*InvoiceResponse, error) {
+	var resp InvoiceResponse
+	if err := c.post(ctx, "/api/v1/invoices/"+invoiceID+"/cancel", nil, &resp); err != nil {
+		return nil, err
+	}
+	return &resp, nil
+}
+
+// VerifyInvoiceCallback verifies the HMAC-SHA512 signature of an invoice callback payload.
+func VerifyInvoiceCallback(payload map[string]interface{}, signature, secret string) bool {
+	message, err := json.Marshal(payload)
+	if err != nil {
+		return false
+	}
+	expected := SignPayload(message, secret)
+	return hmac.Equal([]byte(expected), []byte(signature))
+}
+
 // ── Public ──────────────────────────────────────────────────────────
 
 // Health performs a health check (no authentication required).

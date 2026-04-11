@@ -9,6 +9,11 @@ import type {
   HealthResponse,
   NetworksResponse,
   GoWalletError,
+  CreateInvoiceRequest,
+  SelectPayCurrencyRequest,
+  InvoiceResponse,
+  InvoiceListResponse,
+  InvoiceDetailResponse,
 } from "./types";
 
 export class GoWalletClient {
@@ -33,6 +38,47 @@ export class GoWalletClient {
   /** Generate or retrieve a deposit wallet for a user on a network. */
   async createWallet(params: CreateWalletRequest): Promise<WalletResponse> {
     return this.post<WalletResponse>("/api/v1/wallet", params as unknown as Record<string, unknown>);
+  }
+
+  // ── Invoices ──
+
+  /** Create a new payment invoice. */
+  async createInvoice(params: CreateInvoiceRequest): Promise<InvoiceResponse> {
+    return this.post<InvoiceResponse>("/api/v1/invoices", params as unknown as Record<string, unknown>);
+  }
+
+  /** Get invoice detail by UUID. */
+  async getInvoice(invoiceId: string): Promise<InvoiceDetailResponse> {
+    return this.get<InvoiceDetailResponse>(`/api/v1/invoices/${invoiceId}`);
+  }
+
+  /** List invoices with optional query parameters. */
+  async listInvoices(params?: Record<string, string | number>): Promise<InvoiceListResponse> {
+    let path = "/api/v1/invoices";
+    if (params) {
+      const query = Object.entries(params)
+        .filter(([, v]) => v !== undefined && v !== "")
+        .map(([k, v]) => `${k}=${encodeURIComponent(String(v))}`)
+        .join("&");
+      if (query) path += `?${query}`;
+    }
+    return this.get<InvoiceListResponse>(path);
+  }
+
+  /** Select payment currency and network for an invoice (new -> pending). */
+  async selectPayCurrency(invoiceId: string, params: SelectPayCurrencyRequest): Promise<InvoiceResponse> {
+    return this.post<InvoiceResponse>(`/api/v1/invoices/${invoiceId}/select`, params as unknown as Record<string, unknown>);
+  }
+
+  /** Cancel an invoice (only from new/pending status). */
+  async cancelInvoice(invoiceId: string): Promise<InvoiceResponse> {
+    return this.post<InvoiceResponse>(`/api/v1/invoices/${invoiceId}/cancel`, {});
+  }
+
+  /** Verify the HMAC-SHA512 signature of an invoice callback payload. */
+  verifyInvoiceCallback(payload: Record<string, unknown>, signature: string): boolean {
+    const expected = signPayload(payload, this.apiSecret);
+    return expected === signature;
   }
 
   // ── Public (no auth) ──
