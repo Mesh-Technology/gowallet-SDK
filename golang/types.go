@@ -81,7 +81,6 @@ type InvoiceResponse struct {
 	ActuallyPaid      float64  `json:"actually_paid"`
 	UnderpaidAmount   float64  `json:"underpaid_amount"`
 	OverpaidAmount    float64  `json:"overpaid_amount"`
-	PoolIncreased     bool     `json:"pool_increased"`
 	OrderID           *string  `json:"order_id"`
 	Title             *string  `json:"title"`
 	Description       *string  `json:"description"`

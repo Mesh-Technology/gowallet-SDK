@@ -83,7 +83,6 @@ export interface InvoiceResponse {
   actually_paid: number;
   underpaid_amount: number;
   overpaid_amount: number;
-  pool_increased: boolean;
   order_id: string | null;
   title: string | null;
   description: string | null;
