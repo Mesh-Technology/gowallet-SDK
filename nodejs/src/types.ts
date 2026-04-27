@@ -13,7 +13,7 @@ export interface GoWalletConfig {
 
 export interface CreateWalletRequest {
   userId: string;
-  network: "TRON" | "BSC" | "ETHEREUM" | "SOLANA" | string;
+  network: "TRON" | "BSC" | "ETHEREUM" | "SOLANA" | "TON" | "BITCOIN" | string;
 }
 
 // ── Response Types ──
@@ -64,7 +64,7 @@ export interface CreateInvoiceRequest {
 
 export interface SelectPayCurrencyRequest {
   pay_currency: string;
-  pay_network: "TRON" | "BSC" | "ETHEREUM" | "SOLANA" | string;
+  pay_network: "TRON" | "BSC" | "ETHEREUM" | "SOLANA" | "TON" | "BITCOIN" | string;
   buyer_email?: string;
   buyer_name?: string;
 }
